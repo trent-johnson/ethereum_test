@@ -1,11 +1,28 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.2;
 
 contract Election {
 
-    string public candidate;
+    //Define model / structure
+    struct Candidate {
+        uint id;
+        string name;
+        uint voteCount;
+    }
+
+    //Like an associative array
+    mapping(uint => Candidate) public candidates;
+
+    uint public candidatesCount;
 
     //Constructor
     function Election () public {
-        candidate = "Jimmy Hill";
+        addCandidate("Jimmy Hill");
+        addCandidate("Taylor James");
+    }
+
+    //Ability to add to the mapping candidates
+    function addCandidate (string _name) private {
+        candidatesCount ++;
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
     }
 }
